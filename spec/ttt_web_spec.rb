@@ -1,14 +1,8 @@
-ENV['RACK_ENV'] = 'test'
-
+require 'spec_helper'
 require_relative '../ttt_web'
-require 'rack/test'
 
-RSpec.describe "The TTT web app" do
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
-  end
+RSpec.describe Application do
+  let(:app) { Application.new }
 
   it "says hello" do
     get '/'
