@@ -1,17 +1,15 @@
 require 'sinatra/base'
 require 'ttt_core'
-require_relative 'lib/web_player'
+require_relative 'lib/game_mode'
 
 class Application < Sinatra::Base
   set :sessions, true
 
   get '/game' do
-    board = TttCore::Board.new
-    player_one = WebPlayer.new("X")
-    player_two = WebPlayer.new("O")
-    game = TttCore::Game.new(board, player_one, player_two)
+    game_mode = GameMode.new
+    game = game_mode.configure()
     session[:game] = game
-    erb :game, :locals => { :board => board }
+    erb :game, :locals => { :board => game.board }
   end
 
   post '/game' do
