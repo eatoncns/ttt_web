@@ -1,0 +1,13 @@
+<form method="post" action="/game">
+  <table>
+    <% for row in board.space_rows do %>
+      <tr>
+        <% for space in row %> 
+          <td>
+            <button type="submit" name="move" value=<%= space %>><%= board.get_mark(space) %></button>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</form>

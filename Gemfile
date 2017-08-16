@@ -6,3 +6,4 @@ gem "rake"
 gem "rspec"
 gem "rack-test"
 gem "guard-rspec", require: false
+gem 'ttt_core'
