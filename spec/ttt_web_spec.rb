@@ -1,5 +1,4 @@
-require 'spec_helper'
-require_relative '../ttt_web'
+require 'ttt_web'
 
 RSpec.describe Application do
   let(:app) { Application.new }
