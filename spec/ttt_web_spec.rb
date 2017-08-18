@@ -34,7 +34,8 @@ RSpec.describe Application do
   end
 
   describe "/game" do
-    let(:game_double) { double("Game", { :player_chooses => nil, :board => TttCore::Board.new }) }
+    let(:board) { TttCore::Board.new }
+    let(:game_double) { double("Game", { :player_chooses => nil, :board => board }) }
     let(:session) { { :game => game_double } }
 
     describe "GET" do
@@ -53,6 +54,21 @@ RSpec.describe Application do
           attributes = { :type => "submit", :name => "move", :value => space.to_s }
           expect(response.body).to have_tag(:button, attributes)
         end 
+      end
+
+      context "when space is marked" do
+        it "displays mark on button" do
+          board.set_mark(3, "X")
+          response = get '/game', {}, 'rack.session' => session 
+          attributes = { :value => 3, :text => "X" }
+          expect(response.body).to have_tag(:button, attributes)
+        end
+
+        it "disables button" do
+          board.set_mark(3, "X")
+          response = get '/game', {}, 'rack.session' => session 
+          expect(response.body).to have_tag("button[disabled!='']")
+        end
       end
     end
 

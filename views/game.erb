@@ -4,7 +4,9 @@
       <tr>
         <% for space in row %> 
           <td>
-            <button type="submit" name="move" value=<%= space %>><%= board.get_mark(space) %></button>
+            <% mark = board.get_mark(space) %>
+            <% disabled = mark.empty?() ? "" : "disabled" %> 
+            <button type="submit" name="move" value=<%= space %> <%= disabled %>><%= mark %></button>
           </td>
         <% end %>
       </tr>
