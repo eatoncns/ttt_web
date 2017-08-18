@@ -23,7 +23,16 @@ class Application < Sinatra::Base
     move = params["move"].to_i
     game = session[:game]
     game.player_chooses(move)
-    redirect '/game'
+    if game.over? then
+      redirect '/result'
+    else
+      redirect '/game'
+    end
+  end
+
+  get '/result' do
+    game = session[:game]
+    erb :result, :locals => { :board => game.board }
   end
 
   run! if app_file == $0
