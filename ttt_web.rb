@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'ttt_core'
 require_relative 'lib/game_mode'
 
 class Application < Sinatra::Base
