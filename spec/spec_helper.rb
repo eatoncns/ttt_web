@@ -1,5 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 require 'rack/test'
+require 'rspec-html-matchers'
 
 $: << File.join(File.dirname(__FILE__), '..')
 
@@ -14,8 +15,8 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-  # Ensure rack test methods is included in all specs
   config.include Rack::Test::Methods
+  config.include RSpecHtmlMatchers
 end
 
 RSpec::Matchers.define(:redirect_to) do |path|
