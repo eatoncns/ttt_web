@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative 'lib/game_mode'
+require_relative 'lib/result_presenter'
 
 class Application < Sinatra::Base
   enable :sessions unless test?
@@ -32,7 +33,7 @@ class Application < Sinatra::Base
 
   get '/result' do
     game = session[:game]
-    erb :result, :locals => { :board => game.board }
+    erb :result, :locals => { :result => ResultPresenter.new(game.board) }
   end
 
   run! if app_file == $0

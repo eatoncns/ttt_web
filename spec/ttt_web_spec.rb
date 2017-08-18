@@ -111,7 +111,7 @@ RSpec.describe Application do
       expect(response.status).to eq 200
     end
 
-    it "displays winner" do
+    it "displays result message" do
       expect(response.body).to have_tag(:p, :text => /X wins/)
     end
   end
