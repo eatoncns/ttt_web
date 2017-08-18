@@ -9,5 +9,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(rspec.spec_files)
 
   # Ruby files
+  ruby = dsl.ruby
+  watch(ruby.lib_files) { rspec.spec_dir }
   watch('ttt_web.rb') { rspec.spec_dir }
 end
