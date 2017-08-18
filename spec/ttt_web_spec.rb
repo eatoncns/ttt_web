@@ -3,12 +3,17 @@ require 'ttt_web'
 RSpec.describe Application do
   let(:app) { Application.new }
 
-  describe "GET to /game" do
+  describe "POST to /new-game" do
     let(:session) { {} }
     
     it "creates game in session" do
-      get '/game', {}, 'rack.session' => session
+      post '/new-game', {}, 'rack.session' => session
       expect(session.has_key?(:game)).to be true  
+    end
+
+    it "redirects to /game" do
+      response = post '/new-game', {}, 'rack.session' => session
+      expect(response).to redirect_to "/game"
     end
   end
 
