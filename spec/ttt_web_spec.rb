@@ -26,5 +26,11 @@ RSpec.describe Application do
       env 'rack.session', session
       post '/game', 'move' => '3'
     end
+
+    it "redirects to /game" do
+      env 'rack.session', session
+      response = post '/game', 'move' => '3'
+      expect(response).to redirect_to "/game"
+    end
   end
 end
