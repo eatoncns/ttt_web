@@ -3,7 +3,7 @@ require 'ttt_core'
 require_relative 'lib/game_mode'
 
 class Application < Sinatra::Base
-  set :sessions, true
+  enable :sessions unless test?
 
   get '/game' do
     game_mode = GameMode.new
