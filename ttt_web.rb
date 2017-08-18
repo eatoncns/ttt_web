@@ -6,8 +6,7 @@ class Application < Sinatra::Base
   enable :sessions unless test?
 
   get '/game' do
-    game_mode = GameMode.new
-    game = game_mode.configure()
+    game = GameMode.configure()
     session[:game] = game
     erb :game, :locals => { :board => game.board }
   end
