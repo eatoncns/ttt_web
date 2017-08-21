@@ -9,7 +9,7 @@ module GameMode
     player_one, player_two = configure_players(mode)
     board = TttCore::Board.new
     core_game = TttCore::Game.new(board, player_one, player_two)
-    WebGame.new(core_game)
+    WebGame.new(core_game, mode)
   end
 
   def GameMode.configure_players(mode)

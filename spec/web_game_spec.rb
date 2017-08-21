@@ -2,7 +2,7 @@ require 'web_game'
 
 RSpec.describe WebGame do
   let(:game) { double("Game") }
-  let(:web_game) { WebGame.new(game) }
+  let(:web_game) { WebGame.new(game, "hvh") }
 
   describe "#advance" do
     it "makes move in input" do

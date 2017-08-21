@@ -1,6 +1,9 @@
 class WebGame
-  def initialize(game)
+  attr_reader :mode
+
+  def initialize(game, mode)
     @game = game
+    @mode = mode
   end
 
   def advance(params)
