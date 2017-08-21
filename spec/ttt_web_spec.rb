@@ -2,6 +2,8 @@ require 'ttt_web'
 
 RSpec.describe Application do
   let(:app) { Application.new }
+  let(:session_id) { 1234 }
+  let(:session) { { "session_id" => session_id } }
 
   describe "GET to /" do
     let (:response) { get '/' }
@@ -22,11 +24,9 @@ RSpec.describe Application do
   end
 
   describe "POST to /new-game" do
-    let(:session) { {} }
-
-    it "creates game in session" do
+    it "creates game" do
       post '/new-game', {}, 'rack.session' => session
-      expect(session.has_key?(:game)).to be true  
+      expect(Games.has_key?(session_id)).to be true  
     end
 
     it "redirects to /game" do
@@ -38,7 +38,7 @@ RSpec.describe Application do
   describe "/game" do
     let(:board) { TttCore::Board.new }
     let(:game_double) { instance_double("WebGame", { :advance => nil, :next_page => "/game", :board => board }) }
-    let(:session) { { :game => game_double } }
+    before(:each) { Games[session_id] = game_double }
 
     describe "GET" do
       let(:response) { get '/game', {}, 'rack.session' => session }
@@ -98,7 +98,7 @@ RSpec.describe Application do
   describe "GET to /result" do
     let(:board) { TttCore::Board.from_a(["X", "X", "X", "O", "O", "", "", "", ""]) }
     let(:game_double) { double("Game", { :board => board }) }
-    let(:session) { { :game => game_double } }
+    before(:each) { Games[session_id] = game_double }
     let (:response) { get '/result', {}, 'rack.session' => session }
 
     it "returns OK response" do
