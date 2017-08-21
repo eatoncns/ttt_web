@@ -12,7 +12,7 @@ class Application < Sinatra::Base
   post '/new-game' do
     game = GameMode.configure()
     session[:game] = game
-    redirect '/game'
+    redirect game.next_page()
   end
 
   get '/game' do
@@ -21,14 +21,9 @@ class Application < Sinatra::Base
   end
 
   post '/game' do
-    move = params["move"].to_i
     game = session[:game]
-    game.player_chooses(move)
-    if game.over? then
-      redirect '/result'
-    else
-      redirect '/game'
-    end
+    game.advance(params)
+    redirect game.next_page()
   end
 
   get '/result' do
