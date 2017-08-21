@@ -9,7 +9,7 @@ module GameMode
     player_one = WebPlayer.new("X")
     player_two = WebPlayer.new("O")
     core_game = TttCore::Game.new(board, player_one, player_two)
-    return WebGame.new(core_game)
+    WebGame.new(core_game)
   end
 
 end
