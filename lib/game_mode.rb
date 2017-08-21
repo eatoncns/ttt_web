@@ -4,7 +4,7 @@ require_relative 'web_game'
 
 module GameMode
   
-  def GameMode.configure()
+  def GameMode.configure(params)
     board = TttCore::Board.new
     player_one = WebPlayer.new("X")
     player_two = WebPlayer.new("O")

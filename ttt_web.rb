@@ -11,7 +11,7 @@ class Application < Sinatra::Base
   end
 
   post '/new-game' do
-    game = GameMode.configure()
+    game = GameMode.configure(params)
     session[:game] = game
     redirect game.next_page()
   end
