@@ -106,5 +106,10 @@ RSpec.describe Application do
     it "displays result message" do
       expect(response.body).to have_tag(:p, :text => /X wins/)
     end
+
+    it "displays button to play again" do
+      expect(response.body).to have_tag(:form, :action => "/new-game", :method => "post")
+      expect(response.body).to have_tag(:input, :type => "submit")
+    end
   end
 end
