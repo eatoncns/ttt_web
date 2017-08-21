@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative 'lib/game_mode'
+require_relative 'lib/board_presenter'
 require_relative 'lib/result_presenter'
 
 class Application < Sinatra::Base
@@ -17,7 +18,7 @@ class Application < Sinatra::Base
 
   get '/game' do
     game = session[:game]
-    erb :game, :locals => { :board => game.board }
+    erb :game, :locals => { :board => BoardPresenter.new(game.board) }
   end
 
   post '/game' do
