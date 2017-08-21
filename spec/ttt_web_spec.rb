@@ -10,12 +10,14 @@ RSpec.describe Application do
       expect(response.status).to eq 200
     end
 
-    it "displays a form that POSTs to /new-game" do
-      expect(response.body).to have_tag(:form, :action => "/new-game", :method => "post")
-    end
-
-    it "displays a submit tag" do
-      expect(response.body).to have_tag(:input, :type => "submit")
+    it "displays a form for configuring game" do
+      expect(response.body).to have_form("/new-game", "post") do
+        with_select("mode") do
+          with_option("Human vs Human", "hvh")
+          with_option("Human vs Computer", "hvc")
+        end
+        with_submit("New Game")
+      end
     end
   end
 
@@ -108,8 +110,9 @@ RSpec.describe Application do
     end
 
     it "displays button to play again" do
-      expect(response.body).to have_tag(:form, :action => "/new-game", :method => "post")
-      expect(response.body).to have_tag(:input, :type => "submit")
+      expect(response.body).to have_form("/", "get") do
+        with_submit("New Game")
+      end
     end
   end
 end
