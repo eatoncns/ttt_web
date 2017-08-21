@@ -72,6 +72,14 @@ RSpec.describe Application do
           expect(response.body).to have_tag("button[disabled!='']")
         end
       end
+
+      context "when no game is associated to session id" do
+        before(:each) { Games.clear() }
+
+        it "redirects back to index" do
+          expect(response).to redirect_to "/"
+        end
+      end
     end
 
     describe "POST" do
@@ -92,6 +100,14 @@ RSpec.describe Application do
         expect(response).to redirect_to game_double.next_page()
       end
 
+      context "when no game is associated to session id" do
+        before(:each) { Games.clear() }
+
+        it "redirects back to index" do
+          response = post_with_session()
+          expect(response).to redirect_to "/"
+        end
+      end
     end
   end
 
@@ -112,6 +128,14 @@ RSpec.describe Application do
     it "displays button to play again" do
       expect(response.body).to have_form("/", "get") do
         with_submit("New Game")
+      end
+    end
+
+    context "when no game is associated to session id" do
+      before(:each) { Games.clear() }
+
+      it "redirects back to index" do
+        expect(response).to redirect_to "/"
       end
     end
   end
