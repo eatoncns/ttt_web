@@ -35,7 +35,7 @@ RSpec.describe Application do
 
   describe "/game" do
     let(:board) { TttCore::Board.new }
-    let(:game_double) { double("Game", { :player_chooses => nil, :board => board, :over? => false }) }
+    let(:game_double) { instance_double("WebGame", { :advance => nil, :next_page => "/game", :board => board }) }
     let(:session) { { :game => game_double } }
 
     describe "GET" do
@@ -73,31 +73,23 @@ RSpec.describe Application do
     end
 
     describe "POST" do
+      let(:params) { { 'move' => '3' }}
 
       def post_with_session
         env 'rack.session', session
-        post '/game', 'move' => '3'
+        post '/game', params
       end
 
-      it "updates game with chosen move" do
-        expect(game_double).to receive(:player_chooses).with(3)
+      it "advances game" do
+        expect(game_double).to receive(:advance).with(params)
         post_with_session()
       end
 
-      context "when game is not over" do
-        it "redirects to /game" do
-          response = post_with_session()
-          expect(response).to redirect_to "/game"
-        end
+      it "redirects to next page" do
+        response = post_with_session()
+        expect(response).to redirect_to game_double.next_page()
       end
 
-      context "when game is over" do
-        it "redirects to /result" do
-          allow(game_double).to receive(:over?).and_return(true)
-          response = post_with_session()
-          expect(response).to redirect_to "/result"
-        end
-      end
     end
   end
 
