@@ -23,4 +23,8 @@ class WebGame
   def current_player
     @game.current_player
   end
+
+  def next_player
+    @game.next_player
+  end
 end
