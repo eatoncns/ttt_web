@@ -12,7 +12,7 @@ RSpec.describe BoardPresenter do
     end
   end
 
-  describe "#get_space" do
+  describe "#mark" do
     it "forwards to board" do
       expect(board).to receive(:get_mark).with(space)
       expect(presenter.mark(space)).to eq board.get_mark(space)
