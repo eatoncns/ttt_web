@@ -9,7 +9,11 @@ module GameMode
     player_one, player_two = configure_players(mode)
     board = TttCore::Board.new
     core_game = TttCore::Game.new(board, player_one, player_two)
-    WebGame.new(core_game, mode)
+    web_game = WebGame.new(core_game, mode)
+    if mode == "cvh" 
+      core_game.take_turn()
+    end 
+    web_game
   end
 
   def GameMode.configure_players(mode)

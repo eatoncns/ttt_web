@@ -36,6 +36,6 @@ class WebGame
 
   private
     def computer_move_required?
-      @mode == "hvc" && !@game.over?
+      @mode.include?("c") && !@game.over?
     end
 end

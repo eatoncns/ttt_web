@@ -56,9 +56,9 @@ RSpec.describe GameMode do
   context "when mode is computer vs human" do
     let(:game) { configure("cvh") }
 
-    it "configures game with appropriate players" do
-      expect(game.current_player).to be_a TttCore::Computer
-      expect(game.next_player).to be_a WebPlayer
+    it "takes intiial computer turn" do
+      expect(game.current_player).to be_a WebPlayer
+      expect(game.next_player).to be_a TttCore::Computer
     end
     
     it "sets game mode" do
