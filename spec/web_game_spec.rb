@@ -1,8 +1,71 @@
 require 'web_game'
+require 'game_mode'
 
 RSpec.describe WebGame do
+  let(:mode) { GameMode.new("hvh") }
+
+  describe ".configure" do
+    it "configures game with empty board" do
+      game = WebGame.configure(mode)
+      board = game.board
+      expect(board.empty_spaces().length).to eq board.size
+    end
+
+    def configure(params_mode)
+      mode = GameMode.new("mode" => params_mode)
+      WebGame.configure(mode)
+    end
+
+    context "when mode is human vs human" do
+      let(:game) { configure("hvh") }
+
+      it "configures game with web players" do
+        expect(game.current_player).to be_a WebPlayer
+        expect(game.next_player).to be_a WebPlayer
+      end
+
+      it "configures X to play first" do
+        expect(game.current_player.mark).to eq "X" 
+      end
+
+      it "configures O to play second" do
+        expect(game.next_player.mark).to eq "O"
+      end
+
+      it "sets game mode" do
+        expect(game.mode).to_not be nil 
+      end
+    end
+
+    context "when mode is human vs computer" do
+      let(:game) { configure("hvc") }
+
+      it "configures game with appropriate players" do
+        expect(game.current_player).to be_a WebPlayer
+        expect(game.next_player).to be_a TttCore::Computer
+      end
+      
+      it "sets game mode" do
+        expect(game.mode).to_not be nil
+      end
+    end
+    
+    context "when mode is computer vs human" do
+      let(:game) { configure("cvh") }
+
+      it "takes intiial computer turn" do
+        expect(game.current_player).to be_a WebPlayer
+        expect(game.next_player).to be_a TttCore::Computer
+      end
+      
+      it "sets game mode" do
+        expect(game.mode).to_not be nil
+      end
+    end
+  end
+
   let(:game) { double("Game", { :take_turn => nil, :player_chooses => nil, :over? => false }) }
-  let(:web_game) { WebGame.new(game, "hvh") }
+  let(:web_game) { WebGame.new(game, mode) }
 
   describe "#advance" do
     context "when mode is human vs human" do
@@ -18,7 +81,7 @@ RSpec.describe WebGame do
     end
 
     context "when mode is human vs computer" do
-      let(:web_game) { WebGame.new(game, "hvc") }
+      let(:web_game) { WebGame.new(game, GameMode.new("mode" => "hvc")) }
 
       it "makes move in input" do
         expect(game).to receive(:player_chooses).with(3)

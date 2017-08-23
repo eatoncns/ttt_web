@@ -17,6 +17,7 @@ RSpec.describe Application do
         with_select("mode") do
           with_option("Human vs Human", "hvh")
           with_option("Human vs Computer", "hvc")
+          with_option("Computer vs Human", "cvh")
         end
         with_submit("New Game")
       end
