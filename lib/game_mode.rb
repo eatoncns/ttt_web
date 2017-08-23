@@ -1,32 +1,38 @@
 require 'ttt_core'
 require_relative 'web_player'
-require_relative 'web_game'
 
-module GameMode
-  
-  def GameMode.configure(params)
+class GameMode
+ 
+  Computer = TttCore::Computer
+  Human = WebPlayer
+
+  attr_reader :player_one_type
+  attr_reader :player_two_type
+
+  def initialize(params)
     mode = params["mode"] || "hvh"
-    player_one, player_two = configure_players(mode)
-    board = TttCore::Board.new
-    core_game = TttCore::Game.new(board, player_one, player_two)
-    web_game = WebGame.new(core_game, mode)
-    if mode == "cvh" 
-      core_game.take_turn()
-    end 
-    web_game
+    initialize_player_types(mode)
   end
 
-  def GameMode.configure_players(mode)
+  def initialize_player_types(mode)
     mode_first, mode_second = mode.split("v")
-    player_one = player_from_mode(mode_first).new("X")
-    player_two = player_from_mode(mode_second).new("O")
-    [player_one, player_two]
+    @player_one_type = type_from_mode(mode_first)
+    @player_two_type = type_from_mode(mode_second)
   end
 
-  def GameMode.player_from_mode(mode)
-    if mode == "h"
-      return WebPlayer
+  def type_from_mode(mode)
+    if mode == "c"
+      return Computer
     end
-    TttCore::Computer
+    Human 
   end
+
+  def computer_first?
+    @player_one_type == Computer
+  end
+
+  def has_computer?
+    @player_one_type == Computer || @player_two_type == Computer
+  end 
+  
 end

@@ -1,68 +1,78 @@
 require 'game_mode'
-require 'ttt_core'
 
 RSpec.describe GameMode do
-  let(:params) { {} }
+  context "given hvh mode parameter" do
+    let(:params) { { "mode" => "hvh" } }
+    let(:mode) { GameMode.new(params) }
 
-  it "configures a web game" do
-    expect(GameMode.configure(params)).to be_a WebGame
-  end
-
-  it "configures game with empty board" do
-    game = GameMode.configure(params)
-    board = game.board
-    expect(board.empty_spaces().length).to eq board.size
-  end
-
-  def configure(mode)
-    params["mode"] = mode
-    GameMode.configure(params)
-  end
-
-  context "when mode is human vs human" do
-    let(:game) { configure("hvh") }
-
-    it "configures game with web players" do
-      expect(game.current_player).to be_a WebPlayer
-      expect(game.next_player).to be_a WebPlayer
+    it "returns human for player one type" do
+      expect(mode.player_one_type).to eq GameMode::Human
     end
 
-    it "configures X to play first" do
-      expect(game.current_player.mark).to eq "X" 
+    it "returns human for player two type" do
+      expect(mode.player_two_type).to eq GameMode::Human
     end
 
-    it "configures O to play second" do
-      expect(game.next_player.mark).to eq "O"
+    describe "#computer_first?" do
+      it "returns false" do
+        expect(mode.computer_first?).to be false
+      end
     end
 
-    it "sets game mode" do
-      expect(game.mode).to eq "hvh" 
+    describe "#has_computer?" do
+      it "returns false" do
+        expect(mode.has_computer?).to be false
+      end
     end
   end
 
-  context "when mode is human vs computer" do
-    let(:game) { configure("hvc") }
+  context "given hvc mode parameter" do
+    let(:params) { { "mode" => "hvc" } }
+    let(:mode) { GameMode.new(params) }
 
-    it "configures game with appropriate players" do
-      expect(game.current_player).to be_a WebPlayer
-      expect(game.next_player).to be_a TttCore::Computer
+    it "returns human for player one type" do
+      expect(mode.player_one_type).to eq GameMode::Human
     end
-    
-    it "sets game mode" do
-      expect(game.mode).to eq "hvc"
+
+    it "returns computer for player two type" do
+      expect(mode.player_two_type).to eq GameMode::Computer
+    end
+
+    describe "#computer_first?" do
+      it "returns false" do
+        expect(mode.computer_first?).to be false
+      end
+    end
+
+    describe "#has_computer?" do
+      it "returns true" do
+        expect(mode.has_computer?).to be true
+      end
     end
   end
-  
-  context "when mode is computer vs human" do
-    let(:game) { configure("cvh") }
 
-    it "takes intiial computer turn" do
-      expect(game.current_player).to be_a WebPlayer
-      expect(game.next_player).to be_a TttCore::Computer
+  context "given cvh mode parameter" do
+    let(:params) { { "mode" => "cvh" } }
+    let(:mode) { GameMode.new(params) }
+
+    it "returns computer for player one type" do
+      expect(mode.player_one_type).to eq GameMode::Computer
     end
-    
-    it "sets game mode" do
-      expect(game.mode).to eq "cvh"
+
+    it "returns human for player two type" do
+      expect(mode.player_two_type).to eq GameMode::Human
+    end
+
+    describe "#computer_first?" do
+      it "returns true" do
+        expect(mode.computer_first?).to be true
+      end
+    end
+
+    describe "#has_computer?" do
+      it "returns true" do
+        expect(mode.has_computer?).to be true
+      end
     end
   end
 end

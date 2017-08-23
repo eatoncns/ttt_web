@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative 'lib/game_mode'
+require_relative 'lib/web_game'
 require_relative 'lib/board_presenter'
 require_relative 'lib/result_presenter'
 
@@ -13,7 +14,8 @@ class Application < Sinatra::Base
   end
 
   post '/new-game' do
-    game = GameMode.configure(params)
+    mode = GameMode.new(params)
+    game = WebGame.configure(mode)
     Games[session["session_id"]] = game
     redirect game.next_page()
   end
