@@ -7,7 +7,7 @@ class ResultPresenter
   end
 
   def rows
-    @board.space_rows()
+    @board_spaces.space_rows()
   end
 
   def mark(space)

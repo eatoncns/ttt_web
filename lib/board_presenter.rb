@@ -1,10 +1,13 @@
+require_relative 'board_spaces'
+
 class BoardPresenter
   def initialize(board)
     @board = board
+    @board_spaces = BoardSpaces.new(@board)
   end
 
   def rows
-    @board.space_rows
+    @board_spaces.space_rows
   end
 
   def mark(space)

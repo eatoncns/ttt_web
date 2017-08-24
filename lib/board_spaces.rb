@@ -3,6 +3,10 @@ class BoardSpaces
     @board = board
   end
 
+  def space_rows()
+    (1..@board.size).each_slice(@board.dimension)
+  end
+
   def winning_spaces
     lines.find { |line| winning_line?(line) } || []
   end
