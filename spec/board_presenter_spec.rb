@@ -1,16 +1,9 @@
 require 'board_presenter'
 
 RSpec.describe BoardPresenter do
-  let(:board) { double("Board", { :space_rows => (1..9), :get_mark => "" }) }
+  let(:board) { double("Board", { :get_mark => "" }) }
   let(:presenter) { BoardPresenter.new(board) }
   let(:space) { 3 }
-
-  describe "#rows" do
-    it "forwards to board" do
-      expect(board).to receive(:space_rows)
-      expect(presenter.rows).to eq board.space_rows
-    end
-  end
 
   describe "#mark" do
     it "forwards to board" do

@@ -2,7 +2,15 @@ require 'board_spaces'
 require 'ttt_core'
 
 RSpec.describe BoardSpaces do
-  describe "winning_spaces" do
+  describe "#space_rows" do
+    it "returns spaces making up rows" do
+      board = TttCore::Board.new
+      board_spaces = BoardSpaces.new(board)
+      expect(board_spaces.space_rows().to_a).to eq [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    end
+  end
+  
+  describe "#winning_spaces" do
 
     context "given board with winning row" do
       let(:board) { TttCore::Board.from_a(["X", "X", "X",
