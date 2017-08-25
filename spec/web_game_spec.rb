@@ -2,13 +2,19 @@ require 'web_game'
 require 'game_mode'
 
 RSpec.describe WebGame do
-  let(:mode) { GameMode.new("hvh") }
+  let(:mode) { GameMode.new({ "mode" => "hvh", "board_dimension" => "4" }) }
 
   describe ".configure" do
     it "configures game with empty board" do
       game = WebGame.configure(mode)
       board = game.board
       expect(board.empty_spaces().length).to eq board.size
+    end
+
+    it "configures game with board dimension matching mode" do
+      game = WebGame.configure(mode)
+      board = game.board
+      expect(board.dimension).to eq 4
     end
 
     def configure(params_mode)

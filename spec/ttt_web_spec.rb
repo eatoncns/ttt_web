@@ -19,6 +19,10 @@ RSpec.describe Application do
           with_option("Human vs Computer", "hvc")
           with_option("Computer vs Human", "cvh")
         end
+        with_select("board_dimension") do
+          with_option("3x3", "3")
+          with_option("4x4", "4")
+        end
         with_submit("New Game")
       end
     end
