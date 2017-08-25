@@ -83,8 +83,13 @@ Typography
 ==================
  */
 
-p {
+h1, p {
   margin-bottom: 22px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 44px;
 }
 
 /*

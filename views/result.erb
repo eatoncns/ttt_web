@@ -1,13 +1,15 @@
-<div class="board">
-  <% for row in result.rows do %>
-    <div class="row">
-      <% for space in row %> 
-        <button class="btn cell btn-cell <%= result.winning_class(space) %>" disabled><%= result.mark(space) %></button>
-      <% end %>
-    </div>
-  <% end %>
+<div class="container">
+  <div class="board">
+    <% for row in result.rows do %>
+      <div class="row">
+        <% for space in row %> 
+          <button class="btn cell btn-cell <%= result.winning_class(space) %>" disabled><%= result.mark(space) %></button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <p><%= result.message %></p>
+  <form action="/" method="get">
+    <input class="btn btn-default" type="submit" value="New Game">
+  </form>
 </div>
-<p><%= result.message %></p>
-<form action="/" method="get">
-  <input type="submit" value="New Game">
-</form>
