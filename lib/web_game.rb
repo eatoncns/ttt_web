@@ -4,7 +4,7 @@ class WebGame
   attr_reader :mode
 
   def self.configure(mode)
-    board = TttCore::Board.new
+    board = TttCore::Board.new(mode.board_dimension)
     player_one = mode.player_one_type.new("X")
     player_two = mode.player_two_type.new("O")
     core_game = TttCore::Game.new(board, player_one, player_two)

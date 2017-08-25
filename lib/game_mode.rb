@@ -8,8 +8,11 @@ class GameMode
 
   attr_reader :player_one_type
   attr_reader :player_two_type
+  attr_reader :board_dimension
 
   def initialize(params)
+    board_dimension = params["board_dimension"].to_i
+    @board_dimension = board_dimension >= 3 ? board_dimension : 3
     mode = params["mode"] || "hvh"
     initialize_player_types(mode)
   end

@@ -75,4 +75,18 @@ RSpec.describe GameMode do
       end
     end
   end
+
+  describe "board_dimension" do
+    let(:params) { { "board_dimension" => "4" } }
+    let(:mode) { GameMode.new(params) }
+
+    it "returns board dimension from parameter" do
+      expect(mode.board_dimension).to eq 4
+    end
+
+    it "defaults to board dimension 3" do
+      params.clear()
+      expect(mode.board_dimension).to eq 3
+    end
+  end
 end
