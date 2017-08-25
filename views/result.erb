@@ -1,12 +1,12 @@
-<table border=1>
+<div class="board">
   <% for row in result.rows do %>
-    <tr>
+    <div class="row">
       <% for space in row %> 
-        <td bgcolor=<%= result.bgcolor(space) %>><%= result.mark(space) %></td>
+        <button class="btn cell btn-cell <%= result.winning_class(space) %>" disabled><%= result.mark(space) %></button>
       <% end %>
-    </tr>
+    </div>
   <% end %>
-</table>
+</div>
 <p><%= result.message %></p>
 <form action="/" method="get">
   <input type="submit" value="New Game">

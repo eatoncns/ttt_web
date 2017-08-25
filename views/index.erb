@@ -1,8 +1,11 @@
-<form action="/new-game" method="post">
-  <select name="mode">
-    <option value="hvh">Human vs Human</option>
-    <option value="hvc">Human vs Computer</option>
-    <option value="cvh">Computer vs Human</option>
-  </select>
-  <input type="submit" value="New Game">
+<form class="game-options" action="/new-game" method="post">
+  <label>
+    Game Mode
+    <select name="mode">
+      <option value="hvh">Human vs Human</option>
+      <option value="hvc">Human vs Computer</option>
+      <option value="cvh">Computer vs Human</option>
+    </select>
+  </label>
+  <input class="btn btn-default" type="submit" value="New Game">
 </form>
