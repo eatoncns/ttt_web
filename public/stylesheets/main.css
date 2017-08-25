@@ -49,21 +49,92 @@ table {
 
 /*
 ==================
+Custom styles
+==================
+ */
+
+body {
+  font: 300 16px/22px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*
+==================
 Grid
 ==================
  */
 
 *,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  *:before,
+  *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .container {
+    margin: 30px auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 200px;
+  }
+
+  /*
+  ==================
+  Forms
+  ==================
+   */
+
+input,
+select {
+  font: 300 16px/22px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.container {
-  margin: 30px auto;
-  padding-left: 30px;
-  padding-right: 30px;
-  width: 200px;
+/*
+==================
+Buttons
+==================
+ */
+.btn {
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+}
+
+.btn-default {
+  border: 0;
+  background: #b5b5b5;
+  padding: 11px 30px;
+  font-size: 14px;
+
+}
+.btn-default:hover {
+  background: #707070;
+
+}
+
+/*
+==================
+Game options
+==================
+ */
+
+.game-options label {
+  font-weight: 400;
+}
+
+.game-options input,
+.game-options select {
+  border: 1px solid #c6c9cc;
+  border-radius: 5px;
+  display: block;
+  margin: 5px 0 27px 0;
+  padding: 5px 8px;
+}
+
+.game-options select {
+  height: 34px;
+  width: 170px;
 }
