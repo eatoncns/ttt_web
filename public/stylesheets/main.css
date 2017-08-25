@@ -79,6 +79,16 @@ Grid
 
 /*
 ==================
+Typography
+==================
+ */
+
+p {
+  margin-bottom: 22px;
+}
+
+/*
+==================
 Forms
 ==================
  */
@@ -107,11 +117,9 @@ Buttons
   background: #b5b5b5;
   padding: 11px 30px;
   font-size: 14px;
-
 }
 .btn-default:hover {
   background: #707070;
-
 }
 
 /*
@@ -140,15 +148,21 @@ Game options
 
 /*
 ==================
-Game screen
+Game screens
 ==================
  */
+
+.board {
+  margin-bottom: 22px;
+}
 
 .row {
   padding: 2.5px 2.5px
 }
 
-.btn-cell {
+.cell {
+  font-weight: 400;
+  border-radius: 5px;
   vertical-align: top;
   width: 30px;
   height:30px;
@@ -156,6 +170,14 @@ Game screen
   background: #b5b5b5;
   font-size: 14px;
 }
+
 .btn-cell:hover:enabled {
+  background: #707070;
+}
+.btn-cell:disabled {
+  color: black;
+}
+
+.winning-cell {
   background: #707070;
 }

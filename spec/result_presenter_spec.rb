@@ -21,15 +21,15 @@ RSpec.describe ResultPresenter do
     end
   end
 
-  describe "#bgcolor" do
+  describe "#winning_class" do
     let(:result_presenter) { ResultPresenter.new(winning_board) }
 
-    it "returns green for winning space" do
-      expect(result_presenter.bgcolor(2)).to eq "green"
+    it "returns winning-cell for winning space" do
+      expect(result_presenter.winning_class(2)).to eq "winning-cell"
     end
 
     it "returns empty string for non-winning space" do
-      expect(result_presenter.bgcolor(4)).to eq ""
+      expect(result_presenter.winning_class(4)).to eq ""
     end
   end
 end

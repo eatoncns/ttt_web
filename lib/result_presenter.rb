@@ -14,9 +14,9 @@ class ResultPresenter
     @board.get_mark(space)
   end
 
-  def bgcolor(space)
+  def winning_class(space)
     if @board_spaces.winning_spaces().include?(space)
-      "green"
+      "winning-cell"
     else
       ""
     end 
