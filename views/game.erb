@@ -1,13 +1,10 @@
 <form method="post" action="/game">
-  <table>
     <% for row in board.rows do %>
-      <tr>
+      <div class="row">
         <% for space in row %> 
-          <td>
-            <button type="submit" name="move" value=<%= space %> <%= board.disabled(space) %>><%= board.mark(space) %></button>
-          </td>
+            <button class="btn btn-cell" type="submit" name="move" value=<%= space %> <%= board.disabled(space) %>><%= board.mark(space) %></button>
         <% end %>
-      </tr>
+      </div>
     <% end %>
   </table>
 </form>
