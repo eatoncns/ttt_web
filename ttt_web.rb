@@ -42,6 +42,13 @@ class Application < Sinatra::Base
     BoardJson.encode(game.board)
   end
 
+  post '/api/game' do
+    content_type :json
+    game = game_from_session_or_redirect()
+    game.advance(params)
+    BoardJson.encode(game.board)
+  end
+
   def create_game_for_session()
     mode = GameMode.new(params)
     game = WebGame.configure(mode)
