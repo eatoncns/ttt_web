@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'json'
 require_relative 'lib/game_mode'
 require_relative 'lib/web_game'
 require_relative 'lib/board_presenter'
