@@ -161,25 +161,39 @@ RSpec.describe Application do
     end
   end
 
-  describe "POST to /api/game" do
+  describe "In progress game for api" do
     let(:board) { TttCore::Board.new }
     let(:game_double) { instance_double("WebGame", { :advance => nil, :next_page => "/game", :board => board }) }
     before(:each) { Games[session_id] = game_double }
-    let(:params) { { 'move' => '3' }}
 
-    def post_with_session
+    def post_with_session(url)
       env 'rack.session', session
-      post '/api/game', params
+      post url, params
     end
 
-    it "advances game" do
-      expect(game_double).to receive(:advance).with(hash_including(params))
-      post_with_session()
+    describe "POST to /api/game" do
+      let(:params) { { 'move' => '3' }}
+      let(:url) { '/api/game' }
+
+      it "advances game" do
+        expect(game_double).to receive(:advance).with(hash_including(params))
+        post_with_session(url)
+      end
+      
+      it "returns JSON response" do
+        response = post_with_session(url)
+        expect(response.content_type).to eq "application/json"
+      end
     end
-    
-    it "returns JSON response" do
-      response = post_with_session()
-      expect(response.content_type).to eq "application/json"
+
+    describe "POST to /api/result" do
+      let(:params) { {} }
+      let(:url) { '/api/result' }
+
+      it "returns JSON response" do
+        response = post_with_session(url)
+        expect(response.content_type).to eq "application/json"
+      end
     end
   end
 end

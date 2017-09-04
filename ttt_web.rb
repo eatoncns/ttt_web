@@ -50,17 +50,24 @@ class Application < Sinatra::Base
     erb :result, :locals => { :result => ResultPresenter.new(game.board) }
   end
 
-  post '/api/new-game' do
+  before '/api/*' do
     content_type :json
+  end
+
+  post '/api/new-game' do
     game = create_game_for_session()
     BoardJson.encode(game.board)
   end
 
   post '/api/game' do
-    content_type :json
     game = game_from_session_or_redirect()
     game.advance(params)
     BoardJson.encode(game.board)
+  end
+
+  post '/api/result' do
+    game = game_from_session_or_redirect()
+    BoardJson.encode_result(game.board)
   end
 
   def create_game_for_session()
