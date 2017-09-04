@@ -3,7 +3,7 @@ require_relative 'lib/game_mode'
 require_relative 'lib/web_game'
 require_relative 'lib/board_presenter'
 require_relative 'lib/result_presenter'
-require_relative 'lib/board_json'
+require_relative 'lib/board_encode'
 
 Games = {}
 
@@ -56,18 +56,18 @@ class Application < Sinatra::Base
 
   post '/api/new-game' do
     game = create_game_for_session()
-    BoardJson.encode(game.board)
+    BoardEncode.as_json(game.board)
   end
 
   post '/api/game' do
     game = game_from_session_or_redirect()
     game.advance(params)
-    BoardJson.encode(game.board)
+    BoardEncode.as_json(game.board)
   end
 
   post '/api/result' do
     game = game_from_session_or_redirect()
-    BoardJson.encode_result(game.board)
+    BoardEncode.result_as_json(game.board)
   end
 
   def create_game_for_session()
