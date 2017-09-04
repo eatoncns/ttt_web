@@ -144,4 +144,42 @@ RSpec.describe Application do
       end
     end
   end
+
+  describe "POST to /api/new-game" do
+    let(:response) { post '/api/new-game', {}, 'rack.session' => session }
+
+    it "returns OK response" do
+      expect(response.status).to eq 200
+    end
+
+    it "creates game" do
+      expect(Games.has_key?(session_id)).to be true
+    end
+
+    it "returns JSON response" do
+      expect(response.content_type).to eq "application/json"
+    end
+  end
+
+  describe "POST to /api/game" do
+    let(:board) { TttCore::Board.new }
+    let(:game_double) { instance_double("WebGame", { :advance => nil, :next_page => "/game", :board => board }) }
+    before(:each) { Games[session_id] = game_double }
+    let(:params) { { 'move' => '3' }}
+
+    def post_with_session
+      env 'rack.session', session
+      post '/api/game', params
+    end
+
+    it "advances game" do
+      expect(game_double).to receive(:advance).with(params)
+      post_with_session()
+    end
+    
+    it "returns JSON response" do
+      response = post_with_session()
+      expect(response.content_type).to eq "application/json"
+    end
+  end
 end

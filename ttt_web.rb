@@ -3,6 +3,7 @@ require_relative 'lib/game_mode'
 require_relative 'lib/web_game'
 require_relative 'lib/board_presenter'
 require_relative 'lib/result_presenter'
+require_relative 'lib/board_json'
 
 Games = {}
 
@@ -14,9 +15,7 @@ class Application < Sinatra::Base
   end
 
   post '/new-game' do
-    mode = GameMode.new(params)
-    game = WebGame.configure(mode)
-    Games[session["session_id"]] = game
+    game = create_game_for_session()
     redirect game.next_page()
   end
 
@@ -34,6 +33,25 @@ class Application < Sinatra::Base
   get '/result' do
     game = game_from_session_or_redirect()
     erb :result, :locals => { :result => ResultPresenter.new(game.board) }
+  end
+
+  post '/api/new-game' do
+    content_type :json
+    game = create_game_for_session()
+    BoardJson.encode(game.board)
+  end
+
+  post '/api/game' do
+    content_type :json
+    game = game_from_session_or_redirect()
+    game.advance(params)
+    BoardJson.encode(game.board)
+  end
+
+  def create_game_for_session()
+    mode = GameMode.new(params)
+    game = WebGame.configure(mode)
+    Games[session["session_id"]] = game
   end
 
   def game_from_session_or_redirect
