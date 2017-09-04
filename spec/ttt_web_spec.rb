@@ -96,7 +96,7 @@ RSpec.describe Application do
       end
 
       it "advances game" do
-        expect(game_double).to receive(:advance).with(params)
+        expect(game_double).to receive(:advance).with(hash_including(params))
         post_with_session()
       end
 
@@ -173,7 +173,7 @@ RSpec.describe Application do
     end
 
     it "advances game" do
-      expect(game_double).to receive(:advance).with(params)
+      expect(game_double).to receive(:advance).with(hash_including(params))
       post_with_session()
     end
     

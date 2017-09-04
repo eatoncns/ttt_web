@@ -10,6 +10,21 @@ Games = {}
 class Application < Sinatra::Base
   enable :sessions unless test?
 
+  options "*" do
+    setupCORS()
+    halt 200
+  end
+
+  before do
+    setupCORS()
+  end
+
+  def setupCORS
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "HEAD,GET,POST,PUT,DELETE,OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept" 
+  end
+
   get '/' do
     erb :index
   end
